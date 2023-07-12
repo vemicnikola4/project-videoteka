@@ -1,0 +1,155 @@
+Uvod:
+U vidu tutorijala. Pratimo sta ona radi. Vodimo beleske. Sutradan odlgedamo snimak i uradimo to samostalno sto ona radi na casu.
+Ucenje farameworka je slojevito.
+
+    **Sta je Laravel?
+Open source. Dostupan na gitu. Svakodnevno se dopunjava i menja.
+aziran na MVC paternu MODEL View Controler.
+Za web programiranje.
+Svi ostali fw zasnovani na MVC.
+Najpopularniji LFW 42%.
+Tajlor Otwel smetalo mu sto sve app pocinje sa logovanjem pa se dosetio da napravibiblioteke.
+MIT licenca.
+
+    **MVC patern 18:20
+Najkorisceniji patern u web app.
+To su pravila i strukture fajlova koji nude najbolja resenja za neke probleme.
+Sustina razdvajanje prezentacionog ela od njegove logike.
+Razlozena app na tri celine:
+    1. Model - logika logic and rules of the application
+    2. View - ono sto korisnik vidi css itd
+    3. Controler - komunikacija imedju modela i viewa.
+
+        *Model
+    Logika, cuva sve info o obj i stanju baze pod(BP).Sta god nam treba iz BP radimo iz modela(MD).
+    Poivamo ga iz kontrolera(KO);
+    Informacije o objektima baze podataka 
+    Model ne zna za postojanje pogleda (View komponente) i obrnuto
+    Model nije moguće direktno pozvati, već se njegov poziv vrši preko kontrolera koji od modela zahteva neke podatke
+
+        *View
+    Korisnik vidi. Zahteva od kor neke pod.
+    MOze dakomunicira sa KO i da cita podatke iz MD. Html, css, joson
+    *Kontroler
+    Koordinator. Regulise tog. POsrednik u komunikaciji View MD, MD View.
+        *Controler
+    Koordinator, posrednik izmedju viewa i modela. Prvi sloj koji se poziva kakda pretrazivac unese url adresu. Svaki web zahtev get, post dolazi do odgovarajuceg kontrolera.
+
+    **Tok aplikacije u Laravelu
+    Korisnik-> rutiranje(sloj pre kontrolera)->kotorler(izvlaci podatke iz MD, u zavisnosti sta se trazi mozda dolazi do kom sa bazom)->pogled-> korinik
+    
+    **Prednosti Laravel
+    Opširna i kvalitetna službena dokumentacija 
+    Velika Laravel zajednica 
+    Jednostavnost za kodiranje i razumevanje
+    Fleksibilnost u izmenama  
+    Jednostavno praćenje kontrole toka
+    Kvalitetna logika za testiranje 
+    Omogucava paralelan rad
+
+    **mane
+    Nekad previse slozeno 
+    Neke metode dosta kompleksne
+    Za neke manje app MVC patern mozda i nije najbolje resenje.
+
+    **Laravel application
+    -Composer – omogućuje deklarisanje biblioteka koje su potrebne projektu i brine o njihovoj instalaciji i ažuriranju. NE upravlja paketima, već pakete instalira unutar foldera projekta, pri svakom kreiranju novog projekta
+
+    -PHP Artisan ubrzanje rada u Laravelu dolazi u paketu sa LA. Omogucuje komunikaciju izmedju programera i citave App i to preko komandne linije.U sebi ima lokalni server
+    -Middleware medjusoftver filtrira http requesta app je mnogo sigurnija(sigurnija app);
+    -Blade nacin pisanja koda u pogledima. Koristicemo ga umesto umetanja phpa u htmlu.
+    -Eloquent ORM sluzi za upravljanje bazom podataka gde svaki model predstavlja jednu tabelu iz baze podataka.
+
+**instalacija Laravel video 1 4:00 min https://my.pcloud.com/#page=filemanager&folder=6929778814&tpl=folderlist
+-preuzimanje composera Laravel 
+https://my.pcloud.com/#page=filemanager&folder=6929778814&tpl=folderlist  
+-Nakon sto smo instalirali composer pozicioniramo se u odgovarajuci foledr sa cd u comand line i pokrecemo komandu Laravel video 3
+    composer create-project laravel/laravel videoteka (ili koji god naziv bi nam bio )
+-Nakon inst aplikacije pomocu Composera pozicionirali smo se unutar foldera i pokrenuli php artisan serve. Artisan je u sklopu Laravela.
+-Kada hocemo da zaostavimo server ctrl c. 
+
+**Nakon uspesne instalacije dobijamo neku strukturu projekta    
+    **app folder u kojem su modeli
+        **HTTP
+        *Controler svi fajlovi koji imaju ulogu kontrolera
+        *Middleware softveri koji imaju ulogu filtriranja dolaznih zahteva. Ako zadovoljava pusta se korisnik dalje.
+        *Kernal 
+        **Models tu se nalaze modeli. Svaki model odgovara jendoj tabeli
+    **Database migracije i migracioni fajlovi i seeders(defoltne vrednosti nekih tabela)
+    **Public folder
+    Tu se nalazi index.php
+    I neke javne dadoteke
+    Dodaje se putanja ka storige folderu
+    **Ressources sve vezano za viewe
+    **Rutes svaki url mora da bude definisan u vidu ruta da bi mogli da ga Koristicemo
+    **resources/views – folder u kome su smešteni pogledi (views)
+    **routes – folder u kome definišemo rute i upravljamo njima
+    **storage – keš memorija
+    **vendor – dodaci instalirani putem comosera (Git ignoriše ovaj folder)
+    ** .env se nalazi konekcija na bazu
+
+**Kada mi pokrenemo php artisan on pristupa nasoj app i obraca se index.php u public folderu.
+**Index.php
+    -vendor autoload (koristili smo require  once kad smo radili php)Ovaj auto load file se brine o tome da poziva sve klase koje su nam potrebne.
+    -Pravi se neki app objeakat koji podize neki app objekat i prosledjuje zahtev kernelu.
+    *Kernel (jezgro app)privlaci sve requeste. Nalazi su u app php kernel. Izvrsava stvari neophodne pre nekog zahteva, podize razne Middleware. Obrada requesta.Obrada, prolazi kroz sve Middleware kroz koje mora da prodje.Npr Middleware koji zahteva da korisnik bude logovan.Prosledjuje zahtev na dalju obradu provideru. Root service provider,proverava da  li ga ima u rutama.
+    zahtev->public->index.php->vendor autoload(ukljucuje sve klase neophoodne)->pravi objekat->kernel(podize razne middelware)ako zahtev prodje pomocu RootServiceProvider proverava da li ga ima u rutama-> salje se View .
+*RootServiceProvider  svaaki url mora biti definisan u rutama.Sve rute u okviru RootServiceProvider se nalaze u routes .
+
+    **Resources views bladeview da vidimo welcome page
+
+**Laravel Breeze je minimalna, jednostavna implementacija svih Laravel-ovih funkcija autentifikacije, uključujući: prijavu, registraciju, resetovanje lozinke, verifikaciju e-pošte i potvrdu lozinke
+
+    Za instalaciju Laravel Breeza potrebno je pokrenuti komande:
+    composer require laravel/breeze --dev
+    php artisan breeze:install blade
+
+
+Stvari koje necemo preci ali su nam potrebni
+    java script 
+    jquery
+    ajax
+
+Da instaliramo Bootstrap
+    Pokrenuti sledeće komande:
+    composer require laravel/ui --dev
+    php artisan ui bootstrap --auth 
+Zameniti sva tri fajla (breeze views) novom verzijom 
+npm install bootstrap-icons --save-dev
+U fajlu resources\sass\app.scss u delu dodati:
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+Pokrenuti komande:
+npm install
+npm run build
+
+php artisan cache:clear 
+
+migracions u database je kao sto smo mi radili db_update.
+
+Za svaki link koji hocemo da koristimo mora se definisati rutom.
+
+Rutiranje se vrsi pomocu clase root (put, fetch, delite options)
+
+Route::get('/user', [UserController::class, 'index'])->name('profile');
+
+php artisan migrate 
+migrations tabela vodi racuna koji fajlovi su izvrseni kao db_update sto smo radili
+php artisan db:seed
+
+Pozivamo klasu root i statickemetofe.
+Prvi par url putanje
+Drugi parametar putanja u nasem slucaju posalji ga UserController::class, 'index' i konkretnu klasu index.
+Treci par ime rute u ovom slucaju profile.
+
+Route::match(['get', 'post'], '/', function () { ... });
+
+Route::any('/', function () { ... });
+
+Listu ruta možemo dobiti i pokretanjem komande
+php artisan route:list --except-vendor
+
+VAŽNO: Sve forme koje prilikom submita pozivaju neku od post, put, patch i delete metode zahtevaju CSRF (cross-site request forgery) token
+<form method="POST" action="/profile">
+    @csrf token sigurnosti
+
+    Migracije su za doddavanje i menjanje tabela u database
